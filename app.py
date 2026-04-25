@@ -69,7 +69,7 @@ def benchmark():
     # Initialize genai client
     try:
         client = genai.Client(api_key=api_key)
-        model_id = 'gemini-2.5-flash'
+        model_id = 'gemini-1.5-flash'
     except Exception as e:
         return jsonify({"error": f"Failed to initialize Gemini Client: {str(e)}"}), 400
 

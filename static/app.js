@@ -36,11 +36,12 @@ document.getElementById('benchmarkBtn').addEventListener('click', async () => {
             })
         });
 
-        const data = await response.json();
-        
         if (!response.ok) {
-            throw new Error(data.error || "An error occurred");
+            const data = await response.json().catch(() => ({ error: "Server Error (HTML returned)" }));
+            throw new Error(data.error || `HTTP Error ${response.status}`);
         }
+        
+        const data = await response.json();
 
         // Update UI with Data
         document.getElementById('winnerBanner').textContent = `🏆 WINNER: ${data.winner.toUpperCase()} 🏆`;

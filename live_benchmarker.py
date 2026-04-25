@@ -48,7 +48,7 @@ def run_benchmarking(db):
         return
 
     client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
-    model_id = 'gemini-2.5-flash'
+    model_id = 'gemini-1.5-flash'
     test_query = "Summarize the importance of data engineering."
 
     all_results = []

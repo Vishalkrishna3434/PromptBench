@@ -1,3 +1,4 @@
+flask
 requests
 pandas
 numpy
@@ -7,3 +8,4 @@ matplotlib
 google-genai
 python-dotenv
 gunicorn
+fpdf2

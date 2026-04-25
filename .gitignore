@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+env/
+.env
+
+# Data & Reports
+# (Optional: Include these if you want them in your GitHub, 
+# exclude them if you want a clean repo)
+# prompt_dataset.csv
+# prompt_results.csv
+# PromptBench_Report.pdf
+
+# Plots
+# *.png
+
+# Flask
+instance/
+.webassets-cache
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo

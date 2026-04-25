@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PromptBench | Pro Evaluation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>PromptBench</h1>
+            <p class="subtitle">Production-grade evaluation for LLM engineering</p>
+        </header>
+
+        <div class="api-section">
+            <input type="password" id="apiKey" class="api-input" placeholder="Enter Gemini API Key..." autocomplete="off">
+        </div>
+
+        <div class="prompts-container">
+            <div class="prompt-card">
+                <h2><span>A</span> Prompt A</h2>
+                <textarea id="promptA" placeholder="Type your first prompt here...">You are a helpful assistant. Answer clearly.</textarea>
+            </div>
+            <div class="prompt-card">
+                <h2><span>B</span> Prompt B</h2>
+                <textarea id="promptB" placeholder="Type your second prompt here...">You are an expert assistant. Provide detailed, structured answers with examples. Always clarify ambiguous terms first.</textarea>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button id="benchmarkBtn" class="btn-benchmark">Benchmark Prompts</button>
+        </div>
+        
+        <div id="loader" class="loader"></div>
+
+        <div id="results" class="results-container">
+            <div class="winner-banner">
+                <span id="winnerBanner">Winner: Prompt A</span>
+            </div>
+            
+            <div class="results-grid">
+                <div class="result-card">
+                    <div class="score-container">
+                        <p class="score-label">Efficiency Score</p>
+                        <div id="scoreA" class="score-display">0.00</div>
+                    </div>
+                    
+                    <div class="metrics-list">
+                        <div class="metric-item">
+                            <span class="metric-name">Gemini Quality Score</span>
+                            <span id="apiScoreA" class="metric-value">-</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-name">Latency</span>
+                            <span id="latencyA" class="metric-value">-</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-name">Token Usage</span>
+                            <span id="tokensA" class="metric-value">-</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-name">Instructions</span>
+                            <span id="instructionsA" class="metric-value">-</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-name">Specificity</span>
+                            <span id="specificityA" class="metric-value">-</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-name">Examples</span>
+                            <span id="examplesA" class="metric-value">-</span>
+                        </div>
+                    </div>
+                    
+                    <div class="response-section">
+                        <h3>Gemini Response</h3>
+                        <div id="responseA" class="api-response"></div>
+                    </div>
+                </div>
+
+                <div class="result-card">
+                    <div class="score-container">
+                        <p class="score-label">Efficiency Score</p>
+                        <div id="scoreB" class="score-display">0.00</div>
+                    </div>
+                    
+                    <div class="metrics-list">
+                        <div class="metric-item">
+                            <span class="metric-name">Gemini Quality Score</span>
+                            <span id="apiScoreB" class="metric-value">-</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-name">Latency</span>
+                            <span id="latencyB" class="metric-value">-</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-name">Token Usage</span>
+                            <span id="tokensB" class="metric-value">-</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-name">Instructions</span>
+                            <span id="instructionsB" class="metric-value">-</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-name">Specificity</span>
+                            <span id="specificityB" class="metric-value">-</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-name">Examples</span>
+                            <span id="examplesB" class="metric-value">-</span>
+                        </div>
+                    </div>
+                    
+                    <div class="response-section">
+                        <h3>Gemini Response</h3>
+                        <div id="responseB" class="api-response"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

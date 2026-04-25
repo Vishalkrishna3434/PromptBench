@@ -103,6 +103,20 @@ def analyze_features(df):
     # --- Week 5 style — feature construction ---
     # Print the output label
     print("O/P:")
+    # Feature Extraction (Instructions & Specificity)
+    instruction_verbs = ['always','never','do','don\'t','start','follow','include','end','keep','ensure','must','strictly','exactly']
+    specificity_keywords = ["must", "only", "strictly", "require", "exactly", "specific", "detailed", "ensure", "always", "never"]
+
+    def count_instructions(text):
+        count = 0
+        for line in str(text).lower().split('\n'):
+            line = line.strip()
+            if any(line.startswith(str(i)) for i in range(10)) or any(line.startswith(v) for v in instruction_verbs):
+                count += 1
+        return count
+
+    df['instruction_count'] = df['prompt_text'].apply(count_instructions)
+    df['specificity_score'] = df['prompt_text'].apply(lambda x: (sum(1 for word in str(x).lower().split() if word in specificity_keywords) / len(str(x).split()) * 100) if len(str(x).split()) > 0 else 0)
     # Create a new column 'prompt_type' based on instruction_count
     df['prompt_type'] = np.where(df['instruction_count'] > 5, "detailed", "simple")
     # Generate dummy variables for the 'prompt_type' column

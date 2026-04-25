@@ -11,13 +11,23 @@ def extract_features(text):
     token_length = len(text_lower.split())
     if token_length == 0: return {"instruction_count": 0, "specificity_score": 0, "example_count": 0, "constraint_density": 0}
     
-    instruction_count = sum(1 for line in text_lower.split('\n') if line.strip().startswith(("you", "always", "never", "do", "don't")))
-    constraints = ["must", "only", "strictly", "require"]
-    num_constraints = sum(1 for word in text_lower.split() if word in constraints)
-    specificity_score = (num_constraints / token_length * 100)
+    # Feature 2: Instruction Count
+    instruction_verbs = ['always','never','do','don\'t','start','follow','include','end','keep','ensure','must','strictly','exactly']
+    instruction_count = 0
+    for line in text_lower.split('\n'):
+        line = line.strip()
+        if any(line.startswith(str(i)) for i in range(10)) or any(line.startswith(v) for v in instruction_verbs):
+            instruction_count += 1
+            
+    # Feature 3: Specificity Score
+    specificity_keywords = ["must", "only", "strictly", "require", "exactly", "specific", "detailed", "ensure", "always", "never"]
+    num_constraints = sum(1 for word in text_lower.split() if word in specificity_keywords)
+    specificity_score = (num_constraints / token_length * 100) if token_length > 0 else 0
+    
+    # Feature 4: Example Count
     example_count = text_lower.count("example") + text_lower.count("e.g.")
     num_punctuation = sum(1 for char in str(text) if char in ".,;:!?()[]{}")
-    constraint_density = (num_punctuation / token_length)
+    constraint_density = (num_punctuation / token_length) if token_length > 0 else 0
     
     return {
         "instruction_count": instruction_count,

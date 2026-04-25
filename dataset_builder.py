@@ -37,23 +37,17 @@ def build_dataset():
     for text in prompt_texts:
         # Calculate the token length by splitting text by spaces
         token_length = len(text.split(" "))
-        # Initialize instruction count variable
+        # Feature 2: Instruction Count
+        instruction_verbs = ['always','never','do','don\'t','start','follow','include','end','keep','ensure','must','strictly','exactly']
         instruction_count = 0
-        # Split the text into lines
-        lines = text.lower().split("\n")
-        # Iterate through each line
-        for line in lines:
-            # Strip leading/trailing whitespaces from the line
+        for line in text.lower().split('\n'):
             line = line.strip()
-            # Check if the line starts with specified verb words
-            if line.startswith(("you", "always", "never", "do", "don't")):
-                # Increment the instruction count
+            if any(line.startswith(str(i)) for i in range(10)) or any(line.startswith(v) for v in instruction_verbs):
                 instruction_count += 1
-        # Define a list of specific constraint words
-        constraints = ["must", "only", "strictly", "require"]
-        # Count how many constraint words are in the text
-        num_constraints = sum(1 for word in text.lower().split() if word in constraints)
-        # Calculate specificity score as a percentage (avoid division by zero)
+
+        # Feature 3: Specificity Score
+        specificity_keywords = ["must", "only", "strictly", "require", "exactly", "specific", "detailed", "ensure", "always", "never"]
+        num_constraints = sum(1 for word in text.lower().split() if word in specificity_keywords)
         specificity_score = (num_constraints / token_length * 100) if token_length > 0 else 0
         # Count occurrences of 'example' and 'e.g.' in the text
         example_count = text.lower().count("example") + text.lower().count("e.g.")

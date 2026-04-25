@@ -8,19 +8,25 @@ app = Flask(__name__, static_url_path='', static_folder='static')
 def calculate_features(text):
     """Extracts features from the prompt text based on our ML analysis."""
     text_lower = text.lower()
+    words = text_lower.split()
     
     # Feature 1: Token Length
-    token_length = len(text.split())
+    token_length = len(words)
     
     # Feature 2: Instruction Count
+    # Capture command verbs and numbered/bulleted lists
+    instruction_verbs = ['always','never','do','don\'t','start','follow','include','end','keep','ensure','must','strictly','exactly']
     instruction_count = 0
     for line in text_lower.split('\n'):
-        if line.strip().startswith(("you", "always", "never", "do", "don't")):
+        line = line.strip()
+        # Count if line starts with a number (e.g., "1. ") or a command verb
+        if any(line.startswith(str(i)) for i in range(10)) or any(line.startswith(v) for v in instruction_verbs):
             instruction_count += 1
             
     # Feature 3: Specificity Score
-    constraints = ["must", "only", "strictly", "require"]
-    num_constraints = sum(1 for word in text_lower.split() if word in constraints)
+    # Broaden the list of constraint keywords
+    specificity_keywords = ["must", "only", "strictly", "require", "exactly", "specific", "detailed", "ensure", "always", "never"]
+    num_constraints = sum(1 for word in words if word in specificity_keywords)
     specificity_score = (num_constraints / token_length * 100) if token_length > 0 else 0
     
     # Feature 4: Example Count

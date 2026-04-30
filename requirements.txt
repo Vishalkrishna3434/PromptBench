@@ -1,5 +1,5 @@
 flask
-requests
+requests  # also used for Groq API calls
 pandas
 numpy
 pymongo

@@ -14,7 +14,19 @@
         </header>
 
         <div class="api-section">
+            <!-- Provider Toggle -->
+            <div class="provider-toggle" id="providerToggle">
+                <button class="provider-btn active" data-provider="gemini" id="btnGemini">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M8 2 L10 6 L14 8 L10 10 L8 14 L6 10 L2 8 L6 6 Z" fill="currentColor" opacity="0.6"/></svg>
+                    Gemini
+                </button>
+                <button class="provider-btn" data-provider="groq" id="btnGroq">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="3" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="8" cy="8" r="3" fill="currentColor" opacity="0.6"/></svg>
+                    Groq
+                </button>
+            </div>
             <input type="password" id="apiKey" class="api-input" placeholder="Enter Gemini API Key..." autocomplete="off">
+            <p class="api-hint" id="apiHint">Using Gemini 2.0 Flash &bull; Auto-fallback to Groq if quota exhausted</p>
         </div>
 
         <div class="prompts-container">
@@ -35,6 +47,9 @@
         <div id="loader" class="loader"></div>
 
         <div id="results" class="results-container">
+            <div class="provider-badge" id="providerBadge" style="display:none;">
+                <span id="providerUsedText"></span>
+            </div>
             <div class="winner-banner">
                 <span id="winnerBanner">Winner: Prompt A</span>
             </div>
@@ -48,7 +63,7 @@
                     
                     <div class="metrics-list">
                         <div class="metric-item">
-                            <span class="metric-name">Gemini Quality Score</span>
+                            <span class="metric-name">LLM Quality Score</span>
                             <span id="apiScoreA" class="metric-value">-</span>
                         </div>
                         <div class="metric-item">
@@ -74,7 +89,7 @@
                     </div>
                     
                     <div class="response-section">
-                        <h3>Gemini Response</h3>
+                        <h3>LLM Response</h3>
                         <div id="responseA" class="api-response"></div>
                     </div>
                 </div>
@@ -87,7 +102,7 @@
                     
                     <div class="metrics-list">
                         <div class="metric-item">
-                            <span class="metric-name">Gemini Quality Score</span>
+                            <span class="metric-name">LLM Quality Score</span>
                             <span id="apiScoreB" class="metric-value">-</span>
                         </div>
                         <div class="metric-item">
@@ -113,7 +128,7 @@
                     </div>
                     
                     <div class="response-section">
-                        <h3>Gemini Response</h3>
+                        <h3>LLM Response</h3>
                         <div id="responseB" class="api-response"></div>
                     </div>
                 </div>
